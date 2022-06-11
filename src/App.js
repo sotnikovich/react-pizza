@@ -1,8 +1,9 @@
 import "./scss/app.scss";
-import Categories from "./components/Categories";
 import Header from "./components/Header";
-import Pizza from "./components/Pizza";
-import pizzas from "./pizzas.json";
+import Cart from "./pages/Cart";
+import { Home } from "./pages/Home";
+import { NotFound } from "./components/NotFound";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -10,22 +11,11 @@ function App() {
       <Header />
       <div className="content">
         <div className="container">
-          <div className="content-top">
-            <Categories />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            {pizzas.map((item) => (
-              <Pizza
-                key={item.id}
-                title={item.title}
-                price={item.price}
-                url={item.imageUrl}
-                sizes={item.sizes}
-                types={item.types}
-              />
-            ))}
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
       </div>
     </div>
