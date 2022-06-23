@@ -1,11 +1,11 @@
-function Categories({ value, onClick }) {
+function Categories({ value, onChangeCategory }) {
   const categories = [
     "Все",
     "Мясные",
     "Вегетарианская",
     "Гриль",
     "Острые",
-    "Закрытые",
+    "Микс",
   ];
 
   return (
@@ -14,7 +14,7 @@ function Categories({ value, onClick }) {
         {categories.map((categoryName, i) => (
           <li
             key={i}
-            onClick={() => onClick(i)}
+            onClick={() => onChangeCategory(i)}
             className={value === i ? "active" : ""}
           >
             {categoryName}
