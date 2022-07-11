@@ -15,9 +15,12 @@ body {
   border-radius: 10px;
   max-width: 1400px;
 
-  @media (max-width: 645px) {
+  @media (max-width: 768px) {
     width: calc(100vw - 30px);
     margin-top: 15px;
+  }
+  @media (max-width: 320px) {
+    width: 100%;
   }
 }
 
@@ -98,12 +101,22 @@ body {
 .container {
   width: $container-width;
   margin: 0 auto;
+  @media screen and (max-width: 768px) {
+    width: 96%;
+  }
 
   &--cart {
     max-width: 820px;
     margin: 34px auto;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+
     .content__title {
       margin: 0;
+      @media screen and (max-width: 425px) {
+        font-size: 25px;
+      }
     }
   }
 }
@@ -113,6 +126,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media screen and (max-width: 768px) {
+      padding: 0 10px;
+    }
   }
 
   .content__title {
@@ -144,6 +160,9 @@ body {
       margin-left: 7px;
       color: #b6b6b6;
       font-size: 18px;
+      @media screen and (max-width: 425px) {
+        font-size: 14px;
+      }
     }
 
     span,
@@ -174,7 +193,13 @@ body {
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
-
+    @media screen and (max-width: 425px) {
+      justify-content: space-between;
+    }
+    @media screen and (max-width: 320px) {
+      display: flex;
+      flex-wrap: wrap;
+    }
     &-img {
       display: flex;
       align-items: center;
@@ -184,6 +209,10 @@ body {
       img {
         width: 80px;
         height: 80px;
+        @media screen and (max-width: 425px) {
+          width: 60px;
+          height: 60px;
+        }
       }
     }
 
@@ -192,17 +221,30 @@ body {
       flex-direction: column;
       justify-content: center;
       width: 40%;
+      @media screen and (max-width: 425px) {
+        width: 25%;
+      }
+      @media (max-width: 320px) {
+        width: 16%;
+        justify-content: left;
+      }
 
       h3 {
         font-weight: bold;
         font-size: 22px;
         line-height: 27px;
         letter-spacing: 0.01em;
+        @media screen and (max-width: 425px) {
+          font-size: 18px;
+        }
       }
 
       p {
         font-size: 18px;
         color: #8d8d8d;
+        @media screen and (max-width: 425px) {
+          font-size: 14px;
+        }
       }
     }
 
@@ -211,6 +253,12 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 13%;
+      @media screen and (max-width: 425px) {
+        width: 10%;
+      }
+      @media (max-width: 320px) {
+        width: 7%;
+      }
 
       &-minus {
         svg {
@@ -243,6 +291,9 @@ body {
 
       b {
         font-size: 22px;
+        @media screen and (max-width: 425px) {
+          font-size: 15px;
+        }
       }
     }
 
@@ -251,11 +302,21 @@ body {
       align-items: center;
       justify-content: center;
       width: 33%;
+      @media screen and (max-width: 425px) {
+        width: 25%;
+      }
+      @media (max-width: 320px) {
+        width: 15%;
+        justify-content: flex-end;
+      }
 
       b {
         font-weight: bold;
         font-size: 22px;
         letter-spacing: 0.01em;
+        @media screen and (max-width: 425px) {
+          font-size: 15px;
+        }
       }
     }
 
@@ -264,6 +325,9 @@ body {
       align-items: center;
       justify-content: flex-end;
       width: 4%;
+      @media screen and (max-width: 425px) {
+        width: 1%;
+      }
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
@@ -298,9 +362,15 @@ body {
     &-details {
       display: flex;
       justify-content: space-between;
+      @media screen and (max-width: 425px) {
+        justify-content: space-evenly;
+      }
 
       span {
         font-size: 22px;
+        @media screen and (max-width: 425px) {
+          font-size: 15px;
+        }
 
         &:last-of-type {
           b {
@@ -314,12 +384,18 @@ body {
       display: flex;
       justify-content: space-between;
       margin-top: 40px;
+      @media screen and (max-width: 425px) {
+        justify-content: space-around;
+      }
 
       .go-back-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 210px;
+        @media screen and (max-width: 425px) {
+          width: 150px;
+        }
 
         border-color: darken($color: $gray-line, $amount: 10);
 
@@ -352,6 +428,9 @@ body {
         font-weight: 600;
         width: 210px;
         padding: 16px;
+        @media screen and (max-width: 425px) {
+          width: 150px;
+        }
       }
     }
   }
@@ -360,11 +439,17 @@ body {
     margin: 80px auto;
     width: 620px;
     text-align: center;
+    @media screen and (max-width: 768px) {
+      width: 90%;
+    }
 
     h2 {
       font-size: 36px;
       font-weight: 700;
       margin-bottom: 15px;
+      @media screen and (max-width: 425px) {
+        font-size: 25px;
+      }
     }
 
     p {
@@ -372,6 +457,9 @@ body {
       line-height: 145.4%;
       letter-spacing: 0.01em;
       color: #777777;
+      @media screen and (max-width: 425px) {
+        font-size: 15px;
+      }
     }
 
     icon {
@@ -383,6 +471,9 @@ body {
       display: block;
       width: 300px;
       margin: 45px auto 60px;
+      @media screen and (max-width: 425px) {
+        width: 200px;
+      }
     }
 
     .button--black {
