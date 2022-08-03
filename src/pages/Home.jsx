@@ -1,11 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Pizza from "../components/Pizza";
 import Sort, { sortList } from "../components/Sort";
 import Skeleton from "../components/Pizza/Skeleton";
 import Categories from "../components/Categories";
 import { Pagination } from "../components/Pagination";
-import { useContext } from "react";
-import { SearchContext } from "../App";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setCategoryId,
@@ -13,7 +11,7 @@ import {
   setPageCount,
 } from "../redux/slices/filterSlice";
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 export const Home = () => {
@@ -21,17 +19,15 @@ export const Home = () => {
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const { categoryId, sort, currentPage } = useSelector(
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state) => state.filter
   );
   const { items, status } = useSelector((state) => state.pizza);
-
   const getPizzas = async () => {
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sort.sortProperty.replace("-", "");
     const categories = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
-
     dispatch(
       fetchPizzas({
         order,
@@ -41,11 +37,8 @@ export const Home = () => {
         currentPage,
       })
     );
-
     window.scrollTo(0, 0);
   };
-
-  const { searchValue } = useContext(SearchContext);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -107,10 +100,13 @@ export const Home = () => {
         <div className="content__items">
           {status === "loading"
             ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
-            : items.map((obj) => <Pizza key={obj.id} {...obj} />)}
+            : items.map((obj) => (
+                <Link to={`pizza/${obj.id}`} key={obj.id}>
+                  <Pizza {...obj} />
+                </Link>
+              ))}
         </div>
       )}
-
       <Pagination value={currentPage} onPageChange={onChangePage} />
     </>
   );
