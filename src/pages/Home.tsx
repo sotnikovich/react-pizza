@@ -6,29 +6,30 @@ import Categories from "../components/Categories";
 import { Pagination } from "../components/Pagination";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  selectFilter,
   setCategoryId,
   setFilters,
   setPageCount,
 } from "../redux/slices/filterSlice";
 import qs from "qs";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const { categoryId, sort, currentPage, searchValue } = useSelector(
-    (state) => state.filter
-  );
-  const { items, status } = useSelector((state) => state.pizza);
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizzaData);
   const getPizzas = async () => {
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sort.sortProperty.replace("-", "");
     const categories = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         order,
         sortBy,
@@ -40,11 +41,11 @@ export const Home = () => {
     window.scrollTo(0, 0);
   };
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
+  const onChangePage = (number: number) => {
     dispatch(setPageCount(number));
   };
 
@@ -100,7 +101,7 @@ export const Home = () => {
         <div className="content__items">
           {status === "loading"
             ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
-            : items.map((obj) => (
+            : items.map((obj: any) => (
                 <Link to={`pizza/${obj.id}`} key={obj.id}>
                   <Pizza {...obj} />
                 </Link>

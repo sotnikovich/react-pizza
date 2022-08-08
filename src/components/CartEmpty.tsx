@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import empty from "../assets/empty-cart.svg";
+import React from "react";
 
-export const CartEmpty = () => {
+export const CartEmpty: React.FC = () => {
   return (
     <div className="cart cart--empty">
       <h2>Корзина пустая 😕</h2>

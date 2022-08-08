@@ -3,8 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
 const typeNames = ["тонкое", "традиционное"];
+type PizzaProps = {
+  id: string;
+  price: number;
+  title: string;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+};
 
-function Pizza({ id, price, title, imageUrl, sizes, types }) {
+const Pizza: React.FC<PizzaProps> = ({
+  id,
+  price,
+  title,
+  imageUrl,
+  sizes,
+  types,
+}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(selectCartItemById(id));
   const addedCount = cartItem ? cartItem.count : 0;
@@ -77,6 +92,6 @@ function Pizza({ id, price, title, imageUrl, sizes, types }) {
       </div>
     </div>
   );
-}
+};
 
 export default Pizza;
