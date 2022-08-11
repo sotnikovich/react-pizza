@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import styles from "./Search.module.scss";
 import debounce from "lodash.debounce";
 import { useState } from "react";
@@ -24,7 +24,7 @@ export const Search: React.FC = () => {
     []
   );
 
-  const onChangeInput = (e: any) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     updateSearchValue(e.target.value);
   };

@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
+import { Link } from "react-router-dom";
+import {
+  addItem,
+  CartItem,
+  selectCartItemById,
+} from "../../redux/slices/cartSlice";
 
 const typeNames = ["тонкое", "традиционное"];
 type PizzaProps = {
@@ -27,13 +32,14 @@ const Pizza: React.FC<PizzaProps> = ({
   const [activeSize, setActiveSize] = useState(0);
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       type: typeNames[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
     dispatch(addItem(item));
   };
@@ -41,8 +47,10 @@ const Pizza: React.FC<PizzaProps> = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
+        <Link to={`pizza/${id}`} key={id}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
+        </Link>
         <div className="pizza-block__selector">
           <ul>
             {types.map((type) => (

@@ -1,35 +1,43 @@
-import { useEffect } from "react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSort, setSort } from "../redux/slices/filterSlice";
+import {
+  selectSort,
+  setSort,
+  SortPropertyEnum,
+} from "../redux/slices/filterSlice";
 
 type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: SortPropertyEnum;
+};
+type PopupClick = MouseEvent & {
+  path: Node[];
 };
 
 export const sortList: SortItem[] = [
-  { name: "популярности ↑", sortProperty: "-rating" },
-  { name: "популярности ↓", sortProperty: "rating" },
-  { name: "цене ↑", sortProperty: "-price" },
-  { name: "цене ↓", sortProperty: "price" },
-  { name: "алфавиту ↑", sortProperty: "-title" },
-  { name: "алфавиту ↓", sortProperty: "title" },
+  { name: "популярности ↑", sortProperty: SortPropertyEnum.RATING_ASC },
+  { name: "популярности ↓", sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: "цене ↑", sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: "цене ↓", sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: "алфавиту ↑", sortProperty: SortPropertyEnum.TITLE_ASC },
+  { name: "алфавиту ↓", sortProperty: SortPropertyEnum.TITLE_DESC },
 ];
 
-function Sort() {
+const Sort: React.FC = () => {
   const sortRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const [open, setOpen] = useState(false);
+
   const onItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!e.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
       }
     };
@@ -63,7 +71,9 @@ function Sort() {
             {sortList.map((obj, i) => (
               <li
                 key={i}
-                className={sort === obj.sortProperty ? "active" : ""}
+                className={
+                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                }
                 onClick={() => onItem(obj)}
               >
                 {obj.name}
@@ -74,6 +84,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;
