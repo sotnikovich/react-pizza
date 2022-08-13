@@ -269,6 +269,7 @@ body {
 
         &:disabled {
           opacity: 0.4;
+          cursor: auto;
           border-color: #787878;
 
           &:active {

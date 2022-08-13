@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Search } from "./Search";
 import { useSelector } from "react-redux";
 import { selectCart } from "../redux/slices/cartSlice";
+import { useEffect, useRef } from "react";
 
 function Header() {
   const { items, totalPrice } = useSelector(selectCart);
@@ -11,6 +12,15 @@ function Header() {
     0
   );
   const location = useLocation();
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem("cart", json);
+    }
+    isMounted.current = true;
+  }, [items]);
 
   return (
     <div className="header">
@@ -18,7 +28,7 @@ function Header() {
         <Link to="/">
           <div className="header__logo">
             <img width="38" src={logo} alt="Pizza logo" />
-            <div>
+            <div className="">
               <h1>React Pizza</h1>
               <p>самая вкусная пицца в мире</p>
             </div>

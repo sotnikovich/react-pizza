@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Pizza from "../components/Pizza";
 import Sort, { sortList } from "../components/Sort";
 import Skeleton from "../components/Pizza/Skeleton";
@@ -45,9 +45,9 @@ export const Home: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
-  const onChangeCategory = (id: number) => {
+  const onChangeCategory = useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   const onChangePage = (number: number) => {
     dispatch(setPageCount(number));
@@ -91,16 +91,15 @@ export const Home: React.FC = () => {
     <>
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (
-        <div className="cart cart--empty">
+        <div className="content__error-info">
           <h2>Произошла ошибка 😕</h2>
           <p>
-            К сожалению не удалось получить пиццы.
-            <br />
-            Попробуйте повторить попытку позже.
+            К сожалению, не удалось получить питсы. Попробуйте повторить попытку
+            позже.
           </p>
         </div>
       ) : (
