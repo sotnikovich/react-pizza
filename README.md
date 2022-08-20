@@ -1,4 +1,4 @@
-# React Pizza".
+# React Pizza
 
 ## Описание
 
